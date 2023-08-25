@@ -5,10 +5,9 @@ from onlysubs.domain.models.user import Username
 
 
 @dataclass(frozen=True)
-class CreateUserDTO:
-    username: Username
+class RegisterUserDTO:
     email: Email
     first_name: str
     last_name: str
+    username: Username
     password: str
-    is_active: bool

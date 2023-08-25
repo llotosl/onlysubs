@@ -9,11 +9,12 @@ class UserService:
 
     def create_user(self, data: CreateUserDTO) -> User:
         return User(
-            id=None,
             username=data.username,
+            email=data.email,
             first_name=data.first_name,
             last_name=data.last_name,
             password=self.__hash_password(data.password),
+            is_active=data.is_active,
         )
 
     def is_user_password_valid(self, user: User, password: str) -> bool:
