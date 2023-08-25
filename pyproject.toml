@@ -8,8 +8,29 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "^0.101.1"
+sqlalchemy = {extras = ["aiopg"], version = "^2.0.20"}
+pydantic = "^2.2.1"
+asyncpg = "^0.28.0"
+alembic = "^1.11.3"
+pyjwt = "^2.8.0"
+uvicorn = "^0.23.2"
 
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.285"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+select = ["E", "F", "B", "N", "D", "UP", "ANN", "ASYNC", "S", "B", "COM", "DTZ", "T20", "PYI", "PT", "SIM", "TCH", "TD", "FIX", "PT"]
+
+ignore = ["I","EM","FBT","TRY003","S101","D101","D102","D103","D104","D105","G004","D107"]
+
+unfixable = ["B"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["E402"]
+"path/to/file.py" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402"]
