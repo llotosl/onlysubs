@@ -8,7 +8,7 @@ from onlysubs.domain.models.user import User
 from onlysubs.presentation.fapi.users.models import ActivateUserModel
 
 
-users_router = APIRouter(prefix="/users")
+users_router = APIRouter()
 
 
 @users_router.post("", response_model=User)
