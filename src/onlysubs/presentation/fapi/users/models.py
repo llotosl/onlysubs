@@ -19,3 +19,7 @@ class PublicUserModel(BaseModel):
     first_name: str
     last_name: str
     is_active: bool
+
+
+class ResendActivationEmailModel(BaseModel):
+    email: EmailStr

@@ -17,8 +17,17 @@ from onlysubs.application.register_user.interfaces import (
     UserRepository as RegisterUserUserRepository,
 )
 from onlysubs.application.register_user.use_case import RegisterUser, RegisterUserImpl
+from onlysubs.application.resend_activation_email.use_case import (
+    ResendActivationEmail,
+    ResendActivationEmailImpl,
+)
 from onlysubs.domain.services.user import UserService
 from onlysubs.domain.services.user_activation import UserActivationService
+
+from onlysubs.application.resend_activation_email.interfaces import (
+    UserRepository as ResendActivationEmailUserRepository,
+    EmailSender as ResendActivationEmailEmailSender,
+)
 
 logger = getLogger(__name__)
 
@@ -69,8 +78,13 @@ def init_dependencies(app: FastAPI) -> None:
     app.dependency_overrides[RegisterUserEmailSender] = new_email_sender
     app.dependency_overrides[RegisterUserUserRepository] = new_user_repo
 
+    app.dependency_overrides[ResendActivationEmailEmailSender] = new_email_sender
+    app.dependency_overrides[ResendActivationEmailUserRepository] = new_user_repo
+
     all_depends(RegisterUserImpl)
     all_depends(ActivateUserImpl)
+    all_depends(ResendActivationEmailImpl)
 
     app.dependency_overrides[RegisterUser] = RegisterUserImpl
     app.dependency_overrides[ActivateUser] = ActivateUserImpl
+    app.dependency_overrides[ResendActivationEmail] = ResendActivationEmailImpl

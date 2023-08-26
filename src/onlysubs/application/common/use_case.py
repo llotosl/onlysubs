@@ -1,10 +1,11 @@
 from typing import Callable, Generic, TypeVar
+import abc
 
 InputDTO = TypeVar("InputDTO")
 OutputDTO = TypeVar("OutputDTO")
 
 
-class UseCase(Generic[InputDTO, OutputDTO]):
+class UseCase(Generic[InputDTO, OutputDTO], abc.ABC):
     async def __call__(self, data: InputDTO) -> OutputDTO:
         raise NotImplementedError
 
