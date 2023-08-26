@@ -7,13 +7,17 @@ from onlysubs.application.register_user.use_case import RegisterUser
 from onlysubs.domain.models.email import Email
 from onlysubs.domain.models.user import User, Username
 from onlysubs.domain.models.user_activation import UserActivationToken
-from onlysubs.presentation.fapi.users.models import ActivateUserModel, RegisterUserModel
+from onlysubs.presentation.fapi.users.models import (
+    ActivateUserModel,
+    PublicUserModel,
+    RegisterUserModel,
+)
 
 
 users_router = APIRouter()
 
 
-@users_router.post("", response_model=User)
+@users_router.post("", response_model=PublicUserModel)
 async def register_user_route(
     data: RegisterUserModel,
     register_user: Annotated[RegisterUser, Depends()],

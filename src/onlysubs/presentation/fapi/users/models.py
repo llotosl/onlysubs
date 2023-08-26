@@ -11,3 +11,11 @@ class RegisterUserModel(BaseModel):
     first_name: str
     last_name: str
     password: str = Field(min_length=6)
+
+
+class PublicUserModel(BaseModel):
+    email: str
+    username: str
+    first_name: str
+    last_name: str
+    is_active: bool
