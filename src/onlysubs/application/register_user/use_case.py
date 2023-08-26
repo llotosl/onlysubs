@@ -3,6 +3,7 @@ from onlysubs.application.common.exceptions import (
     UserEmailAlreadyExistsError,
     UsernameAlreadyExistsError,
 )
+from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.common.use_case import UseCase
 from onlysubs.application.register_user.dto import RegisterUserDTO
 from onlysubs.application.register_user.interfaces import EmailSender, UserRepository
@@ -24,11 +25,13 @@ class RegisterUserImpl(RegisterUser):
         user_service: UserService,
         user_activation_service: UserActivationService,
         email_sender: EmailSender,
+        uow: UoW,
     ) -> None:
         self.user_repo = user_repo
         self.user_service = user_service
         self.user_activation_service = user_activation_service
         self.email_sender = email_sender
+        self.uow = uow
 
     async def __call__(self, data: RegisterUserDTO) -> User:
         is_email_not_available = await self.user_repo.is_user_exists_by_email(
@@ -63,4 +66,6 @@ class RegisterUserImpl(RegisterUser):
                 activation_url=f"https://front.com/?token={token}",
             ),
         )
+
+        await self.uow.commit()
         return user

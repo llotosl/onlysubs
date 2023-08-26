@@ -1,4 +1,5 @@
 from onlysubs.application.activate_user.dto import ActivateUserDTO
+from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.common.use_case import UseCase
 from onlysubs.application.activate_user.interfaces import EmailSender, UserRepository
 from onlysubs.domain.services.user_activation import UserActivationService
@@ -14,10 +15,12 @@ class ActivateUserImpl(ActivateUser):
         user_repository: UserRepository,
         user_activation_service: UserActivationService,
         email_sender: EmailSender,
+        uow: UoW,
     ) -> None:
         self.user_repository = user_repository
         self.user_activation_service = user_activation_service
         self.email_sender = email_sender
+        self.uow = uow
 
     async def __call__(self, data: ActivateUserDTO) -> None:
         token = self.user_activation_service.get_payload_from_token(
@@ -27,3 +30,4 @@ class ActivateUserImpl(ActivateUser):
         self.user_activation_service.activate_user(user)
         await self.user_repository.save_user(user)
         await self.email_sender.send_user_confirmation_email(user_email=user.email)
+        await self.uow.commit()
