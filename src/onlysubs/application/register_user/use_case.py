@@ -1,7 +1,7 @@
 from onlysubs.application.common.dto.emails import SendUserActivationEmailDTO
 from onlysubs.application.common.exceptions import (
-    UserEmailAlreadyUsedError,
-    UsernameAlreadyUserError,
+    UserEmailAlreadyExistsError,
+    UsernameAlreadyExistsError,
 )
 from onlysubs.application.common.use_case import UseCase
 from onlysubs.application.register_user.dto import RegisterUserDTO
@@ -35,13 +35,13 @@ class RegisterUserImpl(RegisterUser):
             data.email,
         )
         if is_email_not_available:
-            raise UserEmailAlreadyUsedError
+            raise UserEmailAlreadyExistsError(email=data.email)
 
         is_username_not_available = await self.user_repo.is_user_exists_by_username(
             data.username,
         )
         if is_username_not_available:
-            raise UsernameAlreadyUserError
+            raise UsernameAlreadyExistsError(username=data.username)
 
         user = self.user_service.create_user(
             CreateUserDTO(
