@@ -5,6 +5,10 @@ from onlysubs.domain.services.user_activation import UserActivationService
 
 
 class ActivateUser(UseCase[ActivateUserDTO, None]):
+    pass
+
+
+class ActivateUserImpl(ActivateUser):
     def __init__(
         self,
         user_repository: UserRepository,

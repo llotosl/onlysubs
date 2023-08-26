@@ -10,7 +10,7 @@ from onlysubs.application.activate_user.interfaces import (
     EmailSender as ActivateUserEmailSender,
     UserRepository as ActivateUserUserRepository,
 )
-from onlysubs.application.activate_user.use_case import ActivateUser
+from onlysubs.application.activate_user.use_case import ActivateUser, ActivateUserImpl
 from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.register_user.interfaces import (
     EmailSender as RegisterUserEmailSender,
@@ -70,6 +70,7 @@ def init_dependencies(app: FastAPI) -> None:
     app.dependency_overrides[RegisterUserUserRepository] = new_user_repo
 
     all_depends(RegisterUserImpl)
-    all_depends(ActivateUser)
+    all_depends(ActivateUserImpl)
 
     app.dependency_overrides[RegisterUser] = RegisterUserImpl
+    app.dependency_overrides[ActivateUser] = ActivateUserImpl
