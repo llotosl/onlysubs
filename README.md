@@ -7,10 +7,12 @@ This is my pet project with implementation of Clean Architecture in Python, Fast
 This project is analog of Onlyfans or Boosty. This is service with subscription management where authors can publish content for their subscribers.
 
 # TODO:
- - [ ] Realize MVP.
- - [ ] Add SQLAlchemy support.
+ - [ ] Add pre-commit config with isort, ruff, black etc.
+ - [ ] Add unit and integration tests.
  - [ ] Add docker support.
+ - [ ] Add SQLAlchemy support.
+ - [ ] Realize MVP.
  - [ ] Add CI/CD.
  - [ ] Add Grafana Loki.
  - [ ] Add message broker for background tasks.
- - [ ] Add pre-commit config with isort, ruff, black etc.
+
