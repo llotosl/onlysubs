@@ -6,14 +6,9 @@ from starlette import status
 from starlette.requests import Request
 
 from onlysubs.application.common.exceptions import (
-    ApplicationError,
-    UserEmailAlreadyExistsError,
-    UserEmailNotFoundError,
-    UserIdNotFoundError,
-    UsernameAlreadyExistsError,
-)
+    ApplicationError, UserEmailAlreadyExistsError, UserEmailNotFoundError,
+    UserIdNotFoundError, UsernameAlreadyExistsError)
 from onlysubs.presentation.fapi.responses.exceptions import ErrorResult
-
 
 logger = logging.getLogger(__name__)
 

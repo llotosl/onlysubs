@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from onlysubs.domain.models.email import Email
 
+from onlysubs.domain.models.email import Email
 from onlysubs.domain.models.user import Username
 
 

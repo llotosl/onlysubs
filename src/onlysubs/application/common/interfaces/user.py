@@ -1,6 +1,6 @@
 import abc
-from onlysubs.domain.models.email import Email
 
+from onlysubs.domain.models.email import Email
 from onlysubs.domain.models.user import User, UserId, Username
 
 

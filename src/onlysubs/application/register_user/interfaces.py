@@ -1,12 +1,11 @@
 import abc
-from onlysubs.application.common.interfaces.emails import UserActivationEmailSender
 
-from onlysubs.application.common.interfaces.user import (
-    UserByEmailChecker,
-    UserByEmailReader,
-    UserByUsernameChecker,
-    UserSaver,
-)
+from onlysubs.application.common.interfaces.emails import \
+    UserActivationEmailSender
+from onlysubs.application.common.interfaces.user import (UserByEmailChecker,
+                                                         UserByEmailReader,
+                                                         UserByUsernameChecker,
+                                                         UserSaver)
 
 
 class UserRepository(

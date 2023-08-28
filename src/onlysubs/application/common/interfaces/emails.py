@@ -1,8 +1,6 @@
 import abc
 
-from onlysubs.application.common.dto.emails import (
-    SendUserActivationEmailDTO,
-)
+from onlysubs.application.common.dto.emails import SendUserActivationEmailDTO
 
 
 class UserActivationEmailSender(abc.ABC):

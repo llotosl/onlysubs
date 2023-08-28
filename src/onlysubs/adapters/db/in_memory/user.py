@@ -1,17 +1,12 @@
-from onlysubs.application.common.exceptions import (
-    UserEmailNotFoundError,
-    UserIdNotFoundError,
-)
-from onlysubs.application.common.interfaces.user import (
-    UserByUsernameChecker,
-    UserSaver,
-    UserByEmailChecker,
-    UserByEmailReader,
-    UserByIdReader,
-)
+from onlysubs.application.common.exceptions import (UserEmailNotFoundError,
+                                                    UserIdNotFoundError)
+from onlysubs.application.common.interfaces.user import (UserByEmailChecker,
+                                                         UserByEmailReader,
+                                                         UserByIdReader,
+                                                         UserByUsernameChecker,
+                                                         UserSaver)
 from onlysubs.domain.models.email import Email
 from onlysubs.domain.models.user import User, UserId, Username
-
 
 user_data: dict[int, User] = {}
 user_id = 0

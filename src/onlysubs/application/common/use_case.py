@@ -1,5 +1,5 @@
-from typing import Callable, Generic, TypeVar
 import abc
+from typing import Callable, Generic, TypeVar
 
 InputDTO = TypeVar("InputDTO")
 OutputDTO = TypeVar("OutputDTO")

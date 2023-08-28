@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from onlysubs.presentation.fapi.root import root_router
 
 

@@ -1,5 +1,7 @@
 import abc
-from onlysubs.application.common.interfaces.emails import UserActivationEmailSender
+
+from onlysubs.application.common.interfaces.emails import \
+    UserActivationEmailSender
 from onlysubs.application.common.interfaces.user import UserByEmailReader
 
 

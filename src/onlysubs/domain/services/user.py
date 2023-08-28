@@ -1,4 +1,5 @@
 import hashlib
+
 from onlysubs.domain.dto.user import CreateUserDTO
 from onlysubs.domain.models.user import HashedPassword, User
 

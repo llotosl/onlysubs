@@ -1,9 +1,11 @@
 import abc
+
 from onlysubs.application.common.dto.emails import SendUserActivationEmailDTO
-from onlysubs.application.resend_activation_email.interfaces import EmailSender
 from onlysubs.application.common.use_case import UseCase
-from onlysubs.application.resend_activation_email.dto import ResendActivationEmailDTO
-from onlysubs.application.resend_activation_email.interfaces import UserRepository
+from onlysubs.application.resend_activation_email.dto import \
+    ResendActivationEmailDTO
+from onlysubs.application.resend_activation_email.interfaces import (
+    EmailSender, UserRepository)
 from onlysubs.domain.services.user_activation import UserActivationService
 
 

@@ -1,7 +1,5 @@
 from onlysubs.application.common.interfaces.emails import (
-    UserActivationEmailSender,
-    UserConfirmationEmailSender,
-)
+    UserActivationEmailSender, UserConfirmationEmailSender)
 
 
 class SMTPEmailSender(UserConfirmationEmailSender, UserActivationEmailSender):

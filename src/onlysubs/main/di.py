@@ -1,33 +1,32 @@
 from datetime import timedelta
 from logging import getLogger
 
-from fastapi import FastAPI, Depends
+from fastapi import Depends, FastAPI
 
 from onlysubs.adapters.db.in_memory.uow import InMemoryUoW
 from onlysubs.adapters.db.in_memory.user import InMemoryUserRepository
 from onlysubs.adapters.emails.stdout.email_sender import StdoutEmailSender
-from onlysubs.application.activate_user.interfaces import (
-    EmailSender as ActivateUserEmailSender,
-    UserRepository as ActivateUserUserRepository,
-)
-from onlysubs.application.activate_user.use_case import ActivateUser, ActivateUserImpl
+from onlysubs.application.activate_user.interfaces import \
+    EmailSender as ActivateUserEmailSender
+from onlysubs.application.activate_user.interfaces import \
+    UserRepository as ActivateUserUserRepository
+from onlysubs.application.activate_user.use_case import (ActivateUser,
+                                                         ActivateUserImpl)
 from onlysubs.application.common.interfaces.uow import UoW
-from onlysubs.application.register_user.interfaces import (
-    EmailSender as RegisterUserEmailSender,
-    UserRepository as RegisterUserUserRepository,
-)
-from onlysubs.application.register_user.use_case import RegisterUser, RegisterUserImpl
+from onlysubs.application.register_user.interfaces import \
+    EmailSender as RegisterUserEmailSender
+from onlysubs.application.register_user.interfaces import \
+    UserRepository as RegisterUserUserRepository
+from onlysubs.application.register_user.use_case import (RegisterUser,
+                                                         RegisterUserImpl)
+from onlysubs.application.resend_activation_email.interfaces import \
+    EmailSender as ResendActivationEmailEmailSender
+from onlysubs.application.resend_activation_email.interfaces import \
+    UserRepository as ResendActivationEmailUserRepository
 from onlysubs.application.resend_activation_email.use_case import (
-    ResendActivationEmail,
-    ResendActivationEmailImpl,
-)
+    ResendActivationEmail, ResendActivationEmailImpl)
 from onlysubs.domain.services.user import UserService
 from onlysubs.domain.services.user_activation import UserActivationService
-
-from onlysubs.application.resend_activation_email.interfaces import (
-    UserRepository as ResendActivationEmailUserRepository,
-    EmailSender as ResendActivationEmailEmailSender,
-)
 
 logger = getLogger(__name__)
 
