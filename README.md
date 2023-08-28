@@ -13,3 +13,4 @@ This project is analog of Onlyfans or Boosty. This is service with subscription 
  - [ ] Add CI/CD.
  - [ ] Add Grafana Loki.
  - [ ] Add message broker for background tasks.
+ - [ ] Add pre-commit config with isort, ruff, black etc.
