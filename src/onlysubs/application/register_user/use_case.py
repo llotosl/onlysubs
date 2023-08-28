@@ -10,6 +10,7 @@ from onlysubs.application.register_user.interfaces import (EmailSender,
                                                            UserRepository)
 from onlysubs.domain.dto.user import CreateUserDTO
 from onlysubs.domain.models.user import User
+from onlysubs.domain.models.user_activation import UserActivationToken
 from onlysubs.domain.services.user import UserService
 from onlysubs.domain.services.user_activation import UserActivationService
 
@@ -34,18 +35,31 @@ class RegisterUserImpl(RegisterUser):
         self.uow = uow
 
     async def __call__(self, data: RegisterUserDTO) -> User:
+        await self.__check_if_email_available(data)
+        await self.__check_if_username_available(data)
+
+        user = await self.__create_user(data)
+
+        await self.__send_activation_email_to_user(user)
+
+        await self.uow.commit()
+        return user
+
+    async def __check_if_email_available(self, data):
         is_email_not_available = await self.user_repo.is_user_exists_by_email(
             data.email,
         )
         if is_email_not_available:
             raise UserEmailAlreadyExistsError(email=data.email)
 
+    async def __check_if_username_available(self, data):
         is_username_not_available = await self.user_repo.is_user_exists_by_username(
             data.username,
         )
         if is_username_not_available:
             raise UsernameAlreadyExistsError(username=data.username)
 
+    async def __create_user(self, data: RegisterUserDTO) -> User:
         user = self.user_service.create_user(
             CreateUserDTO(
                 username=data.username,
@@ -57,15 +71,13 @@ class RegisterUserImpl(RegisterUser):
             ),
         )
         await self.user_repo.save_user(user)
+        return user
 
+    async def __send_activation_email_to_user(self, user: User) -> None:
         token = self.user_activation_service.create_token_for_user(user)
-
         await self.email_sender.send_user_activation_email(
             SendUserActivationEmailDTO(
                 user_email=user.email,
                 activation_url=f"https://front.com/?token={token}",
             ),
         )
-
-        await self.uow.commit()
-        return user

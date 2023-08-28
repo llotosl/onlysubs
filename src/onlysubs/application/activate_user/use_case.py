@@ -27,8 +27,11 @@ class ActivateUserImpl(ActivateUser):
         token = self.user_activation_service.get_payload_from_token(
             token=data.activation_token,
         )
+
         user = await self.user_repository.get_user_by_id(token.user_id)
         self.user_activation_service.activate_user(user)
         await self.user_repository.save_user(user)
+
         await self.email_sender.send_user_confirmation_email(user_email=user.email)
+
         await self.uow.commit()
