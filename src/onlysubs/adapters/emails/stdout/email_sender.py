@@ -1,10 +1,8 @@
-import logging
-
 from onlysubs.application.common.dto.emails import SendUserActivationEmailDTO
 from onlysubs.application.common.interfaces.emails import (
-    UserActivationEmailSender, UserConfirmationEmailSender)
-
-logger = logging.getLogger(__name__)
+    UserActivationEmailSender,
+    UserConfirmationEmailSender,
+)
 
 
 class StdoutEmailSender(UserConfirmationEmailSender, UserActivationEmailSender):
