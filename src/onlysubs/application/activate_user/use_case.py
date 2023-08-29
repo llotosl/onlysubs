@@ -1,12 +1,12 @@
+import abc
 from onlysubs.application.activate_user.dto import ActivateUserDTO
-from onlysubs.application.activate_user.interfaces import (EmailSender,
-                                                           UserRepository)
+from onlysubs.application.activate_user.interfaces import EmailSender, UserRepository
 from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.common.use_case import UseCase
 from onlysubs.domain.services.user_activation import UserActivationService
 
 
-class ActivateUser(UseCase[ActivateUserDTO, None]):
+class ActivateUser(UseCase[ActivateUserDTO, None], abc.ABC):
     pass
 
 

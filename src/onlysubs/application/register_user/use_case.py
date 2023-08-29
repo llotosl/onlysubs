@@ -2,12 +2,13 @@ import abc
 
 from onlysubs.application.common.dto.emails import SendUserActivationEmailDTO
 from onlysubs.application.common.exceptions import (
-    UserEmailAlreadyExistsError, UsernameAlreadyExistsError)
+    UserEmailAlreadyExistsError,
+    UsernameAlreadyExistsError,
+)
 from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.common.use_case import UseCase
 from onlysubs.application.register_user.dto import RegisterUserDTO
-from onlysubs.application.register_user.interfaces import (EmailSender,
-                                                           UserRepository)
+from onlysubs.application.register_user.interfaces import EmailSender, UserRepository
 from onlysubs.domain.dto.user import CreateUserDTO
 from onlysubs.domain.models.user import User
 from onlysubs.domain.models.user_activation import UserActivationToken
@@ -45,14 +46,14 @@ class RegisterUserImpl(RegisterUser):
         await self.uow.commit()
         return user
 
-    async def __check_if_email_available(self, data):
+    async def __check_if_email_available(self, data: RegisterUserDTO) -> None:
         is_email_not_available = await self.user_repo.is_user_exists_by_email(
             data.email,
         )
         if is_email_not_available:
             raise UserEmailAlreadyExistsError(email=data.email)
 
-    async def __check_if_username_available(self, data):
+    async def __check_if_username_available(self, data: RegisterUserDTO) -> None:
         is_username_not_available = await self.user_repo.is_user_exists_by_username(
             data.username,
         )
