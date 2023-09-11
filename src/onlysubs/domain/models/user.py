@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import NewType
 
 from onlysubs.domain.models.email import Email
@@ -17,3 +18,6 @@ class User:
     last_name: str
     password: HashedPassword
     is_active: bool
+
+    created_at: datetime
+    updated_at: datetime

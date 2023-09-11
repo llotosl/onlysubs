@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 import hashlib
 
 from onlysubs.domain.dto.user import CreateUserDTO
@@ -9,6 +10,7 @@ class UserService:
         self.__pasword_salt = password_salt
 
     def create_user(self, data: CreateUserDTO) -> User:
+        now = datetime.now(tz=UTC)
         return User(
             username=data.username,
             email=data.email,
@@ -16,6 +18,8 @@ class UserService:
             last_name=data.last_name,
             password=self.__hash_password(data.password),
             is_active=data.is_active,
+            created_at=now,
+            updated_at=now,
         )
 
     def is_user_password_valid(self, user: User, password: str) -> bool:
