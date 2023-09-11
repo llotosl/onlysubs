@@ -1,6 +1,7 @@
 import abc
 from onlysubs.application.activate_user.dto import ActivateUserDTO
 from onlysubs.application.activate_user.interfaces import EmailSender, UserRepository
+from onlysubs.application.common.exceptions import UserIdNotFoundError
 from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.common.use_case import UseCase
 from onlysubs.domain.services.user_activation import UserActivationService
@@ -29,6 +30,9 @@ class ActivateUserImpl(ActivateUser):
         )
 
         user = await self.user_repository.get_user_by_id(token.user_id)
+        if user is None:
+            raise UserIdNotFoundError(token.user_id)
+
         self.user_activation_service.activate_user(user)
         await self.user_repository.save_user(user)
 

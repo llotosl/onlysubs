@@ -1,11 +1,9 @@
-from dataclasses import asdict
 from datetime import UTC, datetime, timedelta
 
 import jwt
 
 from onlysubs.domain.dto.user_activation import UserActivationTokenPayloadDTO
-from onlysubs.domain.exceptions.user_activation import \
-    UserActivationTokenExpired
+from onlysubs.domain.exceptions.user_activation import UserActivationTokenExpired
 from onlysubs.domain.models.user import User
 from onlysubs.domain.models.user_activation import UserActivationToken
 

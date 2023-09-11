@@ -12,13 +12,13 @@ class UserSaver(abc.ABC):
 
 class UserByEmailReader(abc.ABC):
     @abc.abstractmethod
-    async def get_user_by_email(self, email: Email) -> User:
+    async def get_user_by_email(self, email: Email) -> User | None:
         raise NotImplementedError
 
 
 class UserByIdReader(abc.ABC):
     @abc.abstractmethod
-    async def get_user_by_id(self, id: UserId) -> User:
+    async def get_user_by_id(self, id: UserId) -> User | None:
         raise NotImplementedError
 
 
