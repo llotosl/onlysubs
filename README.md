@@ -8,6 +8,8 @@ This project is analog of Onlyfans or Boosty. This is service with subscription 
 
 # Run project
 
+Make sure that you run this project on version 3.10+.
+
 ```sh
 poetry install
 poetry run uvicorn --factory onlysubs.main:create_app
