@@ -10,10 +10,7 @@ This project is analog of Onlyfans or Boosty. This is service with subscription 
 
 ```sh
 poetry install
-```
-
-```sh
-poetry run --factory onlysubs.main:create_app
+poetry run uvicorn --factory onlysubs.main:create_app
 ```
 
 # TODO:
