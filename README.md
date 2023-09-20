@@ -6,6 +6,16 @@ This is my pet project with implementation of Clean Architecture in Python, Fast
 
 This project is analog of Onlyfans or Boosty. This is service with subscription management where authors can publish content for their subscribers.
 
+# Run project
+
+```sh
+poetry install
+```
+
+```sh
+poetry run --factory onlysubs.main:create_app
+```
+
 # TODO:
  - [ ] Add pre-commit config with isort, ruff, black etc.
  - [ ] Add unit and integration tests.
