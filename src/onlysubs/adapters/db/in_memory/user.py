@@ -5,6 +5,7 @@ from onlysubs.application.common.exceptions import (
 from onlysubs.application.common.interfaces.user import (
     UserByEmailChecker,
     UserByEmailReader,
+    UserByIdChecker,
     UserByIdReader,
     UserByUsernameChecker,
     UserSaver,
@@ -22,6 +23,7 @@ class InMemoryUserRepository(
     UserByEmailReader,
     UserByIdReader,
     UserByUsernameChecker,
+    UserByIdChecker,
 ):
     async def save_user(self, user: User) -> None:
         global user_id
@@ -52,3 +54,6 @@ class InMemoryUserRepository(
                 return True
 
         return False
+
+    async def is_user_exists_by_id(self, id: UserId) -> bool:
+        return user_data.get(int(id)) is not None

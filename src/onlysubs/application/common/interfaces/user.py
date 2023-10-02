@@ -32,3 +32,9 @@ class UserByUsernameChecker(abc.ABC):
     @abc.abstractmethod
     async def is_user_exists_by_username(self, username: Username) -> bool:
         raise NotImplementedError
+
+
+class UserByIdChecker(abc.ABC):
+    @abc.abstractmethod
+    async def is_user_exists_by_id(self, id: UserId) -> bool:
+        raise NotImplementedError

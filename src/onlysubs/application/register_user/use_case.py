@@ -11,7 +11,6 @@ from onlysubs.application.register_user.dto import RegisterUserDTO
 from onlysubs.application.register_user.interfaces import EmailSender, UserRepository
 from onlysubs.domain.dto.user import CreateUserDTO
 from onlysubs.domain.models.user import User
-from onlysubs.domain.models.user_activation import UserActivationToken
 from onlysubs.domain.services.user import UserService
 from onlysubs.domain.services.user_activation import UserActivationService
 
