@@ -16,7 +16,7 @@ poetry run uvicorn --factory onlysubs.main:create_app
 ```
 
 # TODO:
- - [ ] Add pre-commit config with isort, ruff, black etc.
+ - [x] Add pre-commit config with isort, ruff, black etc.
  - [ ] Add unit and integration tests.
  - [ ] Add docker support.
  - [ ] Add SQLAlchemy support.
