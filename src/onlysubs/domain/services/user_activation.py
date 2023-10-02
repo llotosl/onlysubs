@@ -3,7 +3,9 @@ from datetime import UTC, datetime, timedelta
 import jwt
 
 from onlysubs.domain.dto.user_activation import UserActivationTokenPayloadDTO
-from onlysubs.domain.exceptions.user_activation import UserActivationTokenExpired
+from onlysubs.domain.exceptions.user_activation import (
+    UserActivationTokenExpired,
+)
 from onlysubs.domain.models.user import User
 from onlysubs.domain.models.user_activation import UserActivationToken
 
@@ -44,7 +46,10 @@ class UserActivationService:
         payload_data = jwt.decode(token, self.secret_key)
         payload = UserActivationTokenPayloadDTO(
             user_id=payload_data["user_id"],
-            active_till=datetime.fromtimestamp(payload_data["active_till"], tz=UTC),
+            active_till=datetime.fromtimestamp(
+                payload_data["active_till"],
+                tz=UTC,
+            ),
         )
         self.__raise_if_token_payload_expired(payload)
         return payload

@@ -1,7 +1,3 @@
-from onlysubs.application.common.exceptions import (
-    UserEmailNotFoundError,
-    UserIdNotFoundError,
-)
 from onlysubs.application.common.interfaces.user import (
     UserByEmailChecker,
     UserByEmailReader,
@@ -42,18 +38,10 @@ class InMemoryUserRepository(
                 return user
 
     async def is_user_exists_by_email(self, email: Email) -> bool:
-        for user in user_data.values():
-            if user.email == email:
-                return True
-
-        return False
+        return any(user.email == email for user in user_data.values())
 
     async def is_user_exists_by_username(self, username: Username) -> bool:
-        for user in user_data.values():
-            if user.username == username:
-                return True
-
-        return False
+        return any(user.username == username for user in user_data.values())
 
     async def is_user_exists_by_id(self, id: UserId) -> bool:
         return user_data.get(int(id)) is not None

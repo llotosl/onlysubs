@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from onlysubs.application.common.interfaces.readable_file import ReadableFile
 
+from onlysubs.application.common.interfaces.readable_file import ReadableFile
 from onlysubs.domain.models.user import UserId
 
 

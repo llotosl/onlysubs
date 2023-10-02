@@ -1,6 +1,6 @@
 import abc
-from onlysubs.application.common.dto.file import LoadFileDTO
 
+from onlysubs.application.common.dto.file import LoadFileDTO
 from onlysubs.domain.models.file import File
 from onlysubs.domain.models.url import URL
 

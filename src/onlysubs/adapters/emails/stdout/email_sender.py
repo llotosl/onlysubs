@@ -5,7 +5,10 @@ from onlysubs.application.common.interfaces.emails import (
 )
 
 
-class StdoutEmailSender(UserConfirmationEmailSender, UserActivationEmailSender):
+class StdoutEmailSender(
+    UserConfirmationEmailSender,
+    UserActivationEmailSender,
+):
     async def send_user_activation_email(
         self,
         data: SendUserActivationEmailDTO,

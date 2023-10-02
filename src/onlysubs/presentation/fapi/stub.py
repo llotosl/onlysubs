@@ -2,9 +2,8 @@ from typing import Callable
 
 
 class Stub:
-    """
-    This class is used to prevent fastapi from digging into
-    real dependencies attributes detecting them as request data
+    """This class is used to prevent fastapi from digging into
+    real dependencies attributes detecting them as request data.
 
     So instead of
     `interactor: Annotated[Interactor, Depends()]`
@@ -16,7 +15,7 @@ class Stub:
 
     """
 
-    def __init__(self, dependency: Callable, **kwargs):
+    def __init__(self, dependency: Callable, **kwargs) -> None:
         self._dependency = dependency
         self._kwargs = kwargs
 
@@ -26,7 +25,8 @@ class Stub:
     def __eq__(self, other: object) -> bool:
         if isinstance(other, Stub):
             return (
-                self._dependency == other._dependency and self._kwargs == other._kwargs
+                self._dependency == other._dependency
+                and self._kwargs == other._kwargs
             )
         else:
             if not self._kwargs:

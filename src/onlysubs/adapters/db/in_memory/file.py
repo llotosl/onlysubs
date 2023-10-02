@@ -1,7 +1,6 @@
 from onlysubs.application.common.interfaces.file import FileSaver
 from onlysubs.domain.models.file import File, FileId
 
-
 file_data: dict[int, File] = {}
 file_id = 0
 

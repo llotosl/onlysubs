@@ -6,8 +6,12 @@ from onlysubs.application.activate_user.dto import ActivateUserDTO
 from onlysubs.application.activate_user.use_case import ActivateUser
 from onlysubs.application.register_user.dto import RegisterUserDTO
 from onlysubs.application.register_user.use_case import RegisterUser
-from onlysubs.application.resend_activation_email.dto import ResendActivationEmailDTO
-from onlysubs.application.resend_activation_email.use_case import ResendActivationEmail
+from onlysubs.application.resend_activation_email.dto import (
+    ResendActivationEmailDTO,
+)
+from onlysubs.application.resend_activation_email.use_case import (
+    ResendActivationEmail,
+)
 from onlysubs.domain.models.email import Email
 from onlysubs.domain.models.user import User, Username
 from onlysubs.domain.models.user_activation import UserActivationToken

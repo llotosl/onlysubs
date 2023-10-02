@@ -2,9 +2,9 @@ from datetime import timedelta
 from logging import getLogger
 
 from fastapi import Depends, FastAPI
+
 from onlysubs.adapters.db.in_memory.avatar import InMemoryAvatarRepository
 from onlysubs.adapters.db.in_memory.file import InMemoryFileRepository
-
 from onlysubs.adapters.db.in_memory.uow import InMemoryUoW
 from onlysubs.adapters.db.in_memory.user import InMemoryUserRepository
 from onlysubs.adapters.emails.stdout.email_sender import StdoutEmailSender
@@ -15,11 +15,20 @@ from onlysubs.application.activate_user.interfaces import (
 from onlysubs.application.activate_user.interfaces import (
     UserRepository as ActivateUserUserRepository,
 )
-from onlysubs.application.activate_user.use_case import ActivateUser, ActivateUserImpl
+from onlysubs.application.activate_user.use_case import (
+    ActivateUser,
+    ActivateUserImpl,
+)
 from onlysubs.application.add_avatar_to_user.interfaces import (
     FileRepository as AddAvatarToUserFileRepository,
+)
+from onlysubs.application.add_avatar_to_user.interfaces import (
     FileStorageGateway as AddAvatarToUserFileStorageGateway,
+)
+from onlysubs.application.add_avatar_to_user.interfaces import (
     UserAvatarRepository as AddAvatarToUserUserAvatarRepository,
+)
+from onlysubs.application.add_avatar_to_user.interfaces import (
     UserRepository as AddAvatarToUserUserRepository,
 )
 from onlysubs.application.add_avatar_to_user.use_case import (
@@ -33,7 +42,10 @@ from onlysubs.application.register_user.interfaces import (
 from onlysubs.application.register_user.interfaces import (
     UserRepository as RegisterUserUserRepository,
 )
-from onlysubs.application.register_user.use_case import RegisterUser, RegisterUserImpl
+from onlysubs.application.register_user.use_case import (
+    RegisterUser,
+    RegisterUserImpl,
+)
 from onlysubs.application.resend_activation_email.interfaces import (
     EmailSender as ResendActivationEmailEmailSender,
 )
@@ -53,9 +65,8 @@ logger = getLogger(__name__)
 
 
 def all_depends(cls: type) -> None:
-    """
-    Adds `Depends()` to the class `__init__` methods, so it can be used
-    a fastapi dependency having own dependencies
+    """Adds `Depends()` to the class `__init__` methods, so it can be used
+    a fastapi dependency having own dependencies.
     """
     init = cls.__init__
     total_ars = init.__code__.co_kwonlyargcount + init.__code__.co_argcount - 1
@@ -110,7 +121,9 @@ def init_dependencies(app: FastAPI) -> None:
     app.dependency_overrides[UoW] = new_uow
 
     app.dependency_overrides[UserService] = new_user_service
-    app.dependency_overrides[UserActivationService] = new_user_activation_service
+    app.dependency_overrides[
+        UserActivationService
+    ] = new_user_activation_service
     app.dependency_overrides[FileService] = new_file_service
     app.dependency_overrides[UserAvatarService] = new_avatar_service
 
@@ -120,12 +133,18 @@ def init_dependencies(app: FastAPI) -> None:
     app.dependency_overrides[RegisterUserEmailSender] = new_email_sender
     app.dependency_overrides[RegisterUserUserRepository] = new_user_repo
 
-    app.dependency_overrides[ResendActivationEmailEmailSender] = new_email_sender
-    app.dependency_overrides[ResendActivationEmailUserRepository] = new_user_repo
+    app.dependency_overrides[
+        ResendActivationEmailEmailSender
+    ] = new_email_sender
+    app.dependency_overrides[
+        ResendActivationEmailUserRepository
+    ] = new_user_repo
 
     app.dependency_overrides[AddAvatarToUserFileRepository] = new_file_repo
     app.dependency_overrides[AddAvatarToUserUserRepository] = new_user_repo
-    app.dependency_overrides[AddAvatarToUserUserAvatarRepository] = new_avatar_repo
+    app.dependency_overrides[
+        AddAvatarToUserUserAvatarRepository
+    ] = new_avatar_repo
     app.dependency_overrides[
         AddAvatarToUserFileStorageGateway
     ] = new_file_storage_gateway

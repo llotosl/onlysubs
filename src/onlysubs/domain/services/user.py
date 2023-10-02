@@ -1,5 +1,5 @@
-from datetime import UTC, datetime
 import hashlib
+from datetime import UTC, datetime
 
 from onlysubs.domain.dto.user import CreateUserDTO
 from onlysubs.domain.models.user import HashedPassword, User
@@ -26,6 +26,6 @@ class UserService:
         return user.password == self.__hash_password(password)
 
     def __hash_password(self, password: str) -> HashedPassword:
-        data_to_hash = "{0}{1}".format(password, self.__pasword_salt)
+        data_to_hash = f"{password}{self.__pasword_salt}"
         hash = hashlib.sha256(data_to_hash.encode("utf-8")).hexdigest()
         return HashedPassword(hash)

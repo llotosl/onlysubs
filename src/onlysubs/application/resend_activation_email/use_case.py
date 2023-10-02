@@ -3,7 +3,9 @@ import abc
 from onlysubs.application.common.dto.emails import SendUserActivationEmailDTO
 from onlysubs.application.common.exceptions import UserEmailNotFoundError
 from onlysubs.application.common.use_case import UseCase
-from onlysubs.application.resend_activation_email.dto import ResendActivationEmailDTO
+from onlysubs.application.resend_activation_email.dto import (
+    ResendActivationEmailDTO,
+)
 from onlysubs.application.resend_activation_email.interfaces import (
     EmailSender,
     UserRepository,

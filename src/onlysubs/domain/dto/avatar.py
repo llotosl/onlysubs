@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from onlysubs.domain.models.file import FileId
 
+from onlysubs.domain.models.file import FileId
 from onlysubs.domain.models.user import UserId
 
 

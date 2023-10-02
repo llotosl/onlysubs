@@ -1,7 +1,6 @@
 from onlysubs.application.common.interfaces.avatar import UserAvatarSaver
 from onlysubs.domain.models.avatar import UserAvatar, UserAvatarId
 
-
 avatar_data: dict[int, UserAvatar] = {}
 avatar_id = 0
 

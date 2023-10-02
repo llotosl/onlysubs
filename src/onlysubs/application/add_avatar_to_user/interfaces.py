@@ -1,6 +1,10 @@
 import abc
+
 from onlysubs.application.common.interfaces.avatar import UserAvatarSaver
-from onlysubs.application.common.interfaces.file import FileSaver, FileStorageLoader
+from onlysubs.application.common.interfaces.file import (
+    FileSaver,
+    FileStorageLoader,
+)
 from onlysubs.application.common.interfaces.user import UserByIdChecker
 
 

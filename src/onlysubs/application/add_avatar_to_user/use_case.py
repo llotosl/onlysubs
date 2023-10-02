@@ -40,7 +40,9 @@ class AddAvatarToUserImpl(AddAvatarToUser):
         self.avatar_service = avatar_service
 
     async def __call__(self, data: AddAvatarToUserDTO) -> UserAvatar:
-        is_user_exists = await self.user_repo.is_user_exists_by_id(data.user_id)
+        is_user_exists = await self.user_repo.is_user_exists_by_id(
+            data.user_id,
+        )
         if not is_user_exists:
             raise UserIdNotFoundError(data.user_id)
 

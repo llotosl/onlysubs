@@ -1,6 +1,10 @@
 import abc
+
 from onlysubs.application.activate_user.dto import ActivateUserDTO
-from onlysubs.application.activate_user.interfaces import EmailSender, UserRepository
+from onlysubs.application.activate_user.interfaces import (
+    EmailSender,
+    UserRepository,
+)
 from onlysubs.application.common.exceptions import UserIdNotFoundError
 from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.common.use_case import UseCase
@@ -36,6 +40,8 @@ class ActivateUserImpl(ActivateUser):
         self.user_activation_service.activate_user(user)
         await self.user_repository.save_user(user)
 
-        await self.email_sender.send_user_confirmation_email(user_email=user.email)
+        await self.email_sender.send_user_confirmation_email(
+            user_email=user.email,
+        )
 
         await self.uow.commit()
