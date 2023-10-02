@@ -28,7 +28,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 select = ["E", "F", "B", "N", "UP", "ANN", "ASYNC", "S", "B", "COM", "DTZ", "T20", "PYI", "PT", "SIM", "TCH", "TD", "FIX", "PT"]
-ignore = ["I","EM","FBT","TRY003","S101","D101","D102","D103","D104","D105","G004","D107", "D100", "ANN101", "T201"]
+ignore = ["I","EM","FBT","TRY003","S101","D101","D102","D103","D104","D105","G004","D107", "D100", "ANN101", "T201", "S104"]
 extend-exclude = ["alembic", "pyproject.toml"]
 unfixable = ["T20", "E711"]
 
