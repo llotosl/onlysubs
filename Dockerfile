@@ -1,13 +1,35 @@
-FROM python:3.11.5-alpine
+FROM python:3.11-slim-buster as python-base
 
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_HOME="/opt/poetry" \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
+    POETRY_NO_INTERACTION=1 \
+    PYSETUP_PATH="/opt/pysetup" \
+    VENV_PATH="/opt/pysetup/.venv"
 
-WORKDIR /onlysubs
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-COPY ./requirements/requirements.txt /onlysubs/requirements/requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /onlysubs/requirements/requirements.txt
+FROM python-base as builder-base
+RUN apt-get update \
+ && apt-get install -y gcc git
 
-COPY . /onlysubs
+WORKDIR $PYSETUP_PATH
+COPY ./pyproject.toml .
+RUN pip install --no-cache-dir --upgrade pip \
+ && pip install --no-cache-dir setuptools wheel \
+ && pip install --no-cache-dir poetry
 
-CMD ["uvicorn", "--factory", "onlysubs.main:create_app", "--host", "0.0.0.0", "--port", "80"]
+RUN poetry install --only main
+
+FROM python-base as production
+COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+RUN apt-get update && apt-get install -y curl
+
+WORKDIR app/
+COPY ./src /app/src
+CMD ["python", "-Om", "src"]
