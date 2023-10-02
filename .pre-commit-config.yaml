@@ -22,6 +22,6 @@ repos:
       - id: poetry-check
       - id: poetry-lock
       - id: poetry-export
-        args: ["-C", "./requirements", "-f", "requirements.txt", "-o", "./requirements/requirements.txt"]
+        args: ["-C", "./requirements", "--only", "main", "-f", "requirements.txt", "-o", "./requirements/requirements.txt"]
       - id: poetry-export
-        args: ["-C", "./requirements", "-f", "requirements.txt", "-o", "./requirements/requirements.dev.txt"]
+        args: ["-C", "./requirements", "--with", "dev", "-f", "requirements.txt", "-o", "./requirements/requirements.dev.txt"]
