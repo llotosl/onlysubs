@@ -12,7 +12,7 @@ Make sure that you run this project on version 3.10+.
 
 ```sh
 poetry install
-poetry run uvicorn --factory onlysubs.main:create_app
+poetry run python -m src
 ```
 
 # TODO:
