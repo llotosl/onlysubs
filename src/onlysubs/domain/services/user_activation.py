@@ -4,7 +4,7 @@ import jwt
 
 from onlysubs.domain.dto.user_activation import UserActivationTokenPayloadDTO
 from onlysubs.domain.exceptions.user_activation import (
-    UserActivationTokenExpired,
+    UserActivationTokenExpiredError,
 )
 from onlysubs.domain.models.user import User
 from onlysubs.domain.models.user_activation import UserActivationToken
@@ -59,4 +59,4 @@ class UserActivationService:
         payload: UserActivationTokenPayloadDTO,
     ) -> None:
         if payload.active_till < datetime.now(tz=UTC):
-            raise UserActivationTokenExpired
+            raise UserActivationTokenExpiredError
