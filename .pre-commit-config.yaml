@@ -3,18 +3,18 @@ repos:
     rev: 'v0.0.291'
     hooks:
       - id: ruff
-        args: ["--config", "pyproject.toml", "--fix", "--fix-only", "--show-fixes"]
- 
-  - repo: https://github.com/psf/black
-    rev: '23.9.1'
-    hooks:
-      - id: black
-        args: ["--config", "pyproject.toml"]
+        args: ["--config", "pyproject.toml", "--fix", "--show-fixes", "."]
  
   - repo: https://github.com/PyCQA/isort
     rev: '5.12.0'
     hooks:
       - id: isort
+
+  - repo: https://github.com/psf/black
+    rev: '23.9.1'
+    hooks:
+      - id: black
+        args: ["--config", "pyproject.toml"]
 
   - repo: https://github.com/python-poetry/poetry
     rev: '1.6.1'
