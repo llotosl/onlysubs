@@ -65,7 +65,7 @@ logger = getLogger(__name__)
 
 
 def all_depends(cls: type) -> None:
-    """Adds `Depends()` to the class `__init__` methods, so it can be used
+    """Add `Depends()` to the class `__init__` methods, so it can be used
     a fastapi dependency having own dependencies.
     """
     init = cls.__init__

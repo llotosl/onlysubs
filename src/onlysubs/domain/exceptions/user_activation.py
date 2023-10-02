@@ -1,9 +1,9 @@
 from onlysubs.domain.exceptions.common import DomainError
 
 
-class UserActivationTokenInvalid(DomainError):
+class UserActivationTokenInvalidError(DomainError):
     pass
 
 
-class UserActivationTokenExpired(DomainError):
+class UserActivationTokenExpiredError(DomainError):
     pass

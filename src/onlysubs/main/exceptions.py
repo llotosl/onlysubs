@@ -6,8 +6,12 @@ from starlette import status
 from starlette.requests import Request
 
 from onlysubs.application.common.exceptions import (
-    ApplicationError, UserEmailAlreadyExistsError, UserEmailNotFoundError,
-    UserIdNotFoundError, UsernameAlreadyExistsError)
+    ApplicationError,
+    UserEmailAlreadyExistsError,
+    UserEmailNotFoundError,
+    UserIdNotFoundError,
+    UsernameAlreadyExistsError,
+)
 from onlysubs.presentation.fapi.responses.exceptions import ErrorResult
 
 logger = logging.getLogger(__name__)
@@ -36,28 +40,44 @@ async def user_email_already_exists_error_handler(
     request: Request,
     err: UserEmailNotFoundError,
 ) -> JSONResponse:
-    return await handle_error(request, err, status_code=status.HTTP_409_CONFLICT)
+    return await handle_error(
+        request,
+        err,
+        status_code=status.HTTP_409_CONFLICT,
+    )
 
 
 async def username_already_exists_error_handler(
     request: Request,
     err: UserEmailNotFoundError,
 ) -> JSONResponse:
-    return await handle_error(request, err, status_code=status.HTTP_409_CONFLICT)
+    return await handle_error(
+        request,
+        err,
+        status_code=status.HTTP_409_CONFLICT,
+    )
 
 
 async def user_id_not_found_error_handler(
     request: Request,
     err: UserEmailNotFoundError,
 ) -> JSONResponse:
-    return await handle_error(request, err, status_code=status.HTTP_404_NOT_FOUND)
+    return await handle_error(
+        request,
+        err,
+        status_code=status.HTTP_404_NOT_FOUND,
+    )
 
 
 async def user_email_not_found_error_handler(
     request: Request,
     err: UserEmailNotFoundError,
 ) -> JSONResponse:
-    return await handle_error(request, err, status_code=status.HTTP_404_NOT_FOUND)
+    return await handle_error(
+        request,
+        err,
+        status_code=status.HTTP_404_NOT_FOUND,
+    )
 
 
 async def handle_error(
