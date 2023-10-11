@@ -21,7 +21,7 @@ def create_app() -> FastAPI:
 async def run_uvicorn_api(app: FastAPI) -> None:
     config = uvicorn.Config(
         app,
-        host="127.0.0.1",
+        host="0.0.0.0",
         port=8000,
         log_level=logging.INFO,
         log_config="logging.ini",
