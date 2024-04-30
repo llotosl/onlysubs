@@ -1,35 +1,45 @@
-FROM python:3.11-slim-buster as python-base
+FROM docker.io/library/python:3.11-slim-buster AS base
 
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_HOME="/opt/poetry" \
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    POETRY_NO_INTERACTION=1 \
-    PYSETUP_PATH="/opt/pysetup" \
-    VENV_PATH="/opt/pysetup/.venv"
+ARG DEBIAN_FRONTEND=noninteractive
 
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+ENV VIRTUAL_ENV=/venv \
+    PATH="/venv/bin:${PATH}"
 
+RUN set -eux; env apt-get update; \
+    apt-get install -y --no-install-recommends libpq5; \
+    rm -rf /var/lib/apt/lists/*
 
-FROM python-base as builder-base
-RUN apt-get update \
- && apt-get install -y gcc git
+# Stage: build
+# ---------------------------------------------------------
+FROM base AS build
 
-WORKDIR $PYSETUP_PATH
-COPY ./pyproject.toml .
-RUN pip install --no-cache-dir --upgrade pip \
- && pip install --no-cache-dir setuptools wheel \
- && pip install --no-cache-dir poetry
+ARG DEBIAN_FRONTEND=noninteractive
+ARG POETRY_VERSION=1.6.1
 
-RUN poetry install --only main
+RUN set -eux; apt-get update; \
+    apt-get install -y --no-install-recommends gcc libpq-dev python3-dev; \
+    rm -rf /var/lib/apt/lists/*
 
-FROM python-base as production
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-RUN apt-get update && apt-get install -y curl
+RUN set -eux; python -m pip install "poetry==${POETRY_VERSION}"; \
+    python -m venv /venv
 
-WORKDIR app/
-COPY . /app
-CMD ["python", "-Om", "src"]
+WORKDIR /src
+
+COPY pyproject.toml poetry.lock /src/
+
+RUN poetry install --no-ansi --no-root --only=main
+
+COPY . /src/
+
+RUN poetry build -f wheel --no-ansi \
+    && python -m pip install --no-deps dist/*.whl
+
+# Stage: final
+# ---------------------------------------------------------
+FROM base
+
+COPY --from=build /venv /venv
+
+EXPOSE 8000
+
+CMD [ "python", "-m", "onlysubs" ]
