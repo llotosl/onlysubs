@@ -8,7 +8,7 @@ packages = [{include = "onlysubs", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.101.1"
+fastapi = "^0.114.0"
 sqlalchemy = {extras = ["aiopg"], version = "^2.0.20"}
 pydantic = {extras = ["email"], version = "^2.3.0"}
 asyncpg = "^0.28.0"

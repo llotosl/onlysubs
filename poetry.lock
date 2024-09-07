@@ -198,22 +198,23 @@ idna = ">=2.0.0"
 
 [[package]]
 name = "fastapi"
-version = "0.101.1"
+version = "0.114.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "fastapi-0.101.1-py3-none-any.whl", hash = "sha256:aef5f8676eb1b8389952e1fe734abe20f04b71f6936afcc53b320ba79b686a4b"},
-    {file = "fastapi-0.101.1.tar.gz", hash = "sha256:7b32000d14ca9992f7461117b81e4ef9ff0c07936af641b4fe40e67d5f9d63cb"},
+    {file = "fastapi-0.114.0-py3-none-any.whl", hash = "sha256:fee75aa1b1d3d73f79851c432497e4394e413e1dece6234f68d3ce250d12760a"},
+    {file = "fastapi-0.114.0.tar.gz", hash = "sha256:9908f2a5cc733004de6ca5e1412698f35085cefcbfd41d539245b9edf87b73c1"},
 ]
 
 [package.dependencies]
 pydantic = ">=1.7.4,<1.8 || >1.8,<1.8.1 || >1.8.1,<2.0.0 || >2.0.0,<2.0.1 || >2.0.1,<2.1.0 || >2.1.0,<3.0.0"
-starlette = ">=0.27.0,<0.28.0"
-typing-extensions = ">=4.5.0"
+starlette = ">=0.37.2,<0.39.0"
+typing-extensions = ">=4.8.0"
 
 [package.extras]
-all = ["email-validator (>=2.0.0)", "httpx (>=0.23.0)", "itsdangerous (>=1.1.0)", "jinja2 (>=2.11.2)", "orjson (>=3.2.1)", "pydantic-extra-types (>=2.0.0)", "pydantic-settings (>=2.0.0)", "python-multipart (>=0.0.5)", "pyyaml (>=5.3.1)", "ujson (>=4.0.1,!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0)", "uvicorn[standard] (>=0.12.0)"]
+all = ["email-validator (>=2.0.0)", "fastapi-cli[standard] (>=0.0.5)", "httpx (>=0.23.0)", "itsdangerous (>=1.1.0)", "jinja2 (>=2.11.2)", "orjson (>=3.2.1)", "pydantic-extra-types (>=2.0.0)", "pydantic-settings (>=2.0.0)", "python-multipart (>=0.0.7)", "pyyaml (>=5.3.1)", "ujson (>=4.0.1,!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0)", "uvicorn[standard] (>=0.12.0)"]
+standard = ["email-validator (>=2.0.0)", "fastapi-cli[standard] (>=0.0.5)", "httpx (>=0.23.0)", "jinja2 (>=2.11.2)", "python-multipart (>=0.0.7)", "uvicorn[standard] (>=0.12.0)"]
 
 [[package]]
 name = "filelock"
@@ -829,20 +830,20 @@ sqlcipher = ["sqlcipher3_binary"]
 
 [[package]]
 name = "starlette"
-version = "0.27.0"
+version = "0.38.4"
 description = "The little ASGI library that shines."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "starlette-0.27.0-py3-none-any.whl", hash = "sha256:918416370e846586541235ccd38a474c08b80443ed31c578a418e2209b3eef91"},
-    {file = "starlette-0.27.0.tar.gz", hash = "sha256:6a6b0d042acb8d469a01eba54e9cda6cbd24ac602c4cd016723117d6a7e73b75"},
+    {file = "starlette-0.38.4-py3-none-any.whl", hash = "sha256:526f53a77f0e43b85f583438aee1a940fd84f8fd610353e8b0c1a77ad8a87e76"},
+    {file = "starlette-0.38.4.tar.gz", hash = "sha256:53a7439060304a208fea17ed407e998f46da5e5d9b1addfea3040094512a6379"},
 ]
 
 [package.dependencies]
 anyio = ">=3.4.0,<5"
 
 [package.extras]
-full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
+full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7)", "pyyaml"]
 
 [[package]]
 name = "typing-extensions"
@@ -907,4 +908,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "8d9b935dcc1f0077236ee1971364a69cba888b0c90256bd2cfcc349d024974f4"
+content-hash = "da2d22dea91a74b1b46007ff1867fc182c4cdddb794e8d0beba684aa76e5a4c8"
