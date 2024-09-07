@@ -3,6 +3,9 @@ from logging import getLogger
 
 from fastapi import Depends, FastAPI
 
+from onlysubs.adapters.activation_crypt.jwt_crypt.jwt_cryptor import (
+    JWTActivationCryptor,
+)
 from onlysubs.adapters.db.in_memory.avatar import InMemoryAvatarRepository
 from onlysubs.adapters.db.in_memory.file import InMemoryFileRepository
 from onlysubs.adapters.db.in_memory.uow import InMemoryUoW
@@ -35,6 +38,7 @@ from onlysubs.application.add_avatar_to_user.use_case import (
     AddAvatarToUser,
     AddAvatarToUserImpl,
 )
+from onlysubs.application.common.interfaces.token import ActivationCryptor
 from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.register_user.interfaces import (
     EmailSender as RegisterUserEmailSender,
@@ -86,15 +90,11 @@ def new_user_repo() -> InMemoryUserRepository:
 
 
 def new_user_service() -> UserService:
-    return UserService("PASSWORD_SALT")
+    return UserService()
 
 
 def new_user_activation_service() -> UserActivationService:
-    return UserActivationService(
-        "SECRET_KEY",
-        "HS256",
-        timedelta(days=7),
-    )
+    return UserActivationService(timedelta(days=7))
 
 
 def new_file_service() -> FileService:
@@ -115,6 +115,13 @@ def new_avatar_repo() -> InMemoryAvatarRepository:
 
 def new_file_storage_gateway() -> LocalFileStorageGateway:
     return LocalFileStorageGateway()
+
+
+def new_activation_cryptor() -> JWTActivationCryptor:
+    return JWTActivationCryptor(
+        "SECRET_KEY",
+        "HS256",
+    )
 
 
 def init_dependencies(app: FastAPI) -> None:
@@ -148,6 +155,8 @@ def init_dependencies(app: FastAPI) -> None:
     app.dependency_overrides[
         AddAvatarToUserFileStorageGateway
     ] = new_file_storage_gateway
+
+    app.dependency_overrides[ActivationCryptor] = new_activation_cryptor
 
     all_depends(RegisterUserImpl)
     all_depends(ActivateUserImpl)

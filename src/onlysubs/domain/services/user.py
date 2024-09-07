@@ -6,9 +6,6 @@ from onlysubs.domain.models.user import HashedPassword, User
 
 
 class UserService:
-    def __init__(self, password_salt: str) -> None:
-        self.__pasword_salt = password_salt
-
     def create_user(self, data: CreateUserDTO) -> User:
         now = datetime.now(tz=UTC)
         return User(

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from onlysubs.domain.models.user_activation import UserActivationToken
+from onlysubs.domain.dto.user_activation import UserActivationToken
 
 
 @dataclass

@@ -5,6 +5,7 @@ from onlysubs.application.common.exceptions import (
     UserEmailAlreadyExistsError,
     UsernameAlreadyExistsError,
 )
+from onlysubs.application.common.interfaces.token import ActivationCryptor
 from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.common.use_case import UseCase
 from onlysubs.application.register_user.dto import RegisterUserDTO
@@ -30,12 +31,14 @@ class RegisterUserImpl(RegisterUser):
         user_activation_service: UserActivationService,
         email_sender: EmailSender,
         uow: UoW,
+        cryptor: ActivationCryptor,
     ) -> None:
         self.user_repo = user_repo
         self.user_service = user_service
         self.user_activation_service = user_activation_service
         self.email_sender = email_sender
         self.uow = uow
+        self.cryptor = cryptor
 
     async def __call__(self, data: RegisterUserDTO) -> User:
         await self.__check_if_email_available(data)
@@ -82,7 +85,10 @@ class RegisterUserImpl(RegisterUser):
         return user
 
     async def __send_activation_email_to_user(self, user: User) -> None:
-        token = self.user_activation_service.create_token_for_user(user)
+        user_activation = self.user_activation_service.create_user_activation(
+            user,
+        )
+        token = self.cryptor.encrypt(user_activation)
         await self.email_sender.send_user_activation_email(
             SendUserActivationEmailDTO(
                 user_email=user.email,

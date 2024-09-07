@@ -6,6 +6,7 @@ from onlysubs.application.activate_user.interfaces import (
     UserRepository,
 )
 from onlysubs.application.common.exceptions import UserIdNotFoundError
+from onlysubs.application.common.interfaces.token import ActivationCryptor
 from onlysubs.application.common.interfaces.uow import UoW
 from onlysubs.application.common.use_case import UseCase
 from onlysubs.domain.services.user_activation import UserActivationService
@@ -22,20 +23,23 @@ class ActivateUserImpl(ActivateUser):
         user_activation_service: UserActivationService,
         email_sender: EmailSender,
         uow: UoW,
+        cryptor: ActivationCryptor,
     ) -> None:
         self.user_repository = user_repository
         self.user_activation_service = user_activation_service
         self.email_sender = email_sender
         self.uow = uow
+        self.cryptor = cryptor
 
     async def __call__(self, data: ActivateUserDTO) -> None:
-        token = self.user_activation_service.get_payload_from_token(
-            token=data.activation_token,
-        )
+        user_activation = self.cryptor.decrypt(data.activation_token)
+        self.user_activation_service.validate_user_activation(user_activation)
 
-        user = await self.user_repository.get_user_by_id(token.user_id)
+        user = await self.user_repository.get_user_by_id(
+            user_activation.user_id,
+        )
         if user is None:
-            raise UserIdNotFoundError(token.user_id)
+            raise UserIdNotFoundError(user_activation.user_id)
 
         self.user_activation_service.activate_user(user)
         await self.user_repository.save_user(user)

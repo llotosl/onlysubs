@@ -2,6 +2,7 @@ import abc
 
 from onlysubs.application.common.dto.emails import SendUserActivationEmailDTO
 from onlysubs.application.common.exceptions import UserEmailNotFoundError
+from onlysubs.application.common.interfaces.token import ActivationCryptor
 from onlysubs.application.common.use_case import UseCase
 from onlysubs.application.resend_activation_email.dto import (
     ResendActivationEmailDTO,
@@ -23,17 +24,22 @@ class ResendActivationEmailImpl(ResendActivationEmail):
         user_repository: UserRepository,
         email_sender: EmailSender,
         user_activation_service: UserActivationService,
+        cryptor: ActivationCryptor,
     ) -> None:
         self.user_repo = user_repository
         self.email_sender = email_sender
         self.user_activation_service = user_activation_service
+        self.cryptor = cryptor
 
     async def __call__(self, data: ResendActivationEmailDTO) -> None:
         user = await self.user_repo.get_user_by_email(data.user_email)
         if user is None:
             raise UserEmailNotFoundError(email=data.user_email)
 
-        token = self.user_activation_service.create_token_for_user(user)
+        user_activation = self.user_activation_service.create_user_activation(
+            user,
+        )
+        token = self.cryptor.encrypt(user_activation)
 
         await self.email_sender.send_user_activation_email(
             SendUserActivationEmailDTO(
